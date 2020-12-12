@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">tivi+</string>
+    <string name="movies">Movies</string>
+    <string name="tv_shows">TV Shows</string>
+
+    <string name="tmdb">TMDb</string>
+
+    <string name="dummy_title">Lorem ipsum dolor sit amet, consectetur adipiscing elit</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="dummy_year">2020</string>
+    <string name="dummy_rating">7.6</string>
+    <string name="dummy_rating_votes"> / 234 votes</string>
+    <string name="dummy_content_rating">PG-13</string>
+    <string name="dummy_stats">\u00b7 2020 \u00b7 1h 56m </string>
+    <string name="dummy_genre">Action, Sci-fi, Animated</string>
+
+    <!-- Strings used for fragments for navigation -->
+
+    <string name="watchlist">Add to Watchlist</string>
+    <string name="favorite">Add to Favourites</string>
+    <string name="share">Share this!</string>
+    <string name="overview">Overview</string>
+    <string name="cast">Cast</string>
+    <string name="seasons">Seasons</string>
+    <string name="original_title">Original Title</string>
+    <string name="original_language">Original Language</string>
+    <string name="reviews">Reviews</string>
+    <string name="recommendation">Recommendations</string>
+    <string name="similar_with_this">Similar with this</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="people">People</string>
+    <string name="popular">Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="now_playing">Now Playing</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="search">Search</string>
+    <string name="myaccount">My Account</string>
+    <string name="known_for">Known for : %1$s.</string>
+    <string name="facts">Facts</string>
+</resources>
