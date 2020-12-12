@@ -25,7 +25,7 @@
             tools:text="@string/dummy_title" />
 
         <TextView
-            android:id="@+id/txt_people_role"
+            android:id="@+id/txt_people_content"
             style="@style/DescriptionText.4Line"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

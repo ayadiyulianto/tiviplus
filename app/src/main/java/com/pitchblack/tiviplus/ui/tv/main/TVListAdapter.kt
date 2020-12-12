@@ -8,11 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.pitchblack.tiviplus.R
+import com.pitchblack.tiviplus.Utils.getYear
 import com.pitchblack.tiviplus.data.model.TV
 import com.pitchblack.tiviplus.data.network.RestAPI
 import com.pitchblack.tiviplus.databinding.ItemMovieTvBinding
-import java.text.SimpleDateFormat
-import java.util.*
 
 class TVListAdapter: ListAdapter<TV, TVListAdapter.ViewHolder>(TVEntityDiffCallback()) {
 
@@ -44,7 +43,7 @@ class TVListAdapter: ListAdapter<TV, TVListAdapter.ViewHolder>(TVEntityDiffCallb
                     .error(R.drawable.ic_baseline_broken_image_24))
                 .into(binding.imgItemMainMovieTv)
             binding.txtTitleItemMainMovieTv.text = item.name
-            binding.txtSubtitleItemMainMovieTv.text = if (item.firstAirDate.isEmpty()) "-" else item.firstAirDate.take(4)
+            binding.txtSubtitleItemMainMovieTv.text = item.firstAirDate.getYear()
             binding.txtDescItemMainMovieTv.text = item.overview
             binding.txtRatingItemMainMovieTv.text = item.voteAverage.toString()
         }

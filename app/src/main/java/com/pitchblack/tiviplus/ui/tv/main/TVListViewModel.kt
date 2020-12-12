@@ -8,7 +8,7 @@ import com.pitchblack.tiviplus.data.network.dto.toDomainModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class TVListViewModel(tabId: Int) : ViewModel() {
+class TVListViewModel(private val tabId: Int = TAB_TITLES[0]) : ViewModel() {
 
     private val _listTV = MutableLiveData<List<TV>>()
     val listTV: LiveData<List<TV>>

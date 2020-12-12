@@ -33,9 +33,10 @@
     <string name="top_rated">Top Rated</string>
     <string name="upcoming">Upcoming</string>
     <string name="now_playing">Now Playing</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="search">Search</string>
     <string name="myaccount">My Account</string>
     <string name="known_for">Known for : %1$s.</string>
     <string name="facts">Facts</string>
+    <string name="stats">\u00b7 %1$s \u00b7 %2$s</string>
+    <string name="rating_votes"> / %1$d votes</string>
 </resources>

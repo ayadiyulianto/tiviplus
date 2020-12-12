@@ -7,10 +7,11 @@ import com.pitchblack.tiviplus.data.model.Movie
 import com.pitchblack.tiviplus.data.network.dto.toDomainModel
 import kotlinx.coroutines.launch
 
-class MovieListViewModel(tabId: Int) : ViewModel() {
+class MovieListViewModel(private val tabId: Int = TAB_TITLES[0]) : ViewModel() {
 
     private val _listMovies = MutableLiveData<List<Movie>>()
-    val listMovie get() = _listMovies
+    val listMovie: LiveData<List<Movie>>
+        get() = _listMovies
 
     init {
         when(tabId) {

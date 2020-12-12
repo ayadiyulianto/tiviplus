@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pitchblack.tiviplus.databinding.FragmentMovieListBinding
-import com.pitchblack.tiviplus.ui.people.main.PeopleAdapter
 
 class MovieListFragment : Fragment() {
 

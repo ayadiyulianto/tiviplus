@@ -5,7 +5,6 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.pitchblack.tiviplus.R
@@ -48,7 +47,7 @@ class MovieFragment : Fragment() {
     }
 
     fun navigateToDetailFragment(movieId: Int) {
-        this.findNavController().navigate(
+        findNavController().navigate(
             MovieFragmentDirections.actionNavigationMovieToMovieDetailFragment(movieId)
         )
     }

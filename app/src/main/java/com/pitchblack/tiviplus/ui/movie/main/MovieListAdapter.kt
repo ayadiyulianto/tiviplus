@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.pitchblack.tiviplus.R
+import com.pitchblack.tiviplus.Utils.getYear
 import com.pitchblack.tiviplus.data.model.Movie
 import com.pitchblack.tiviplus.data.network.RestAPI
 import com.pitchblack.tiviplus.databinding.ItemMovieTvBinding
 
-class MovieListAdapter(val clickListener: MovieClickListener)
+class MovieListAdapter(private val clickListener: MovieClickListener)
     : ListAdapter<Movie, MovieListAdapter.ViewHolder>(MovieEntityDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListAdapter.ViewHolder {
@@ -41,7 +42,7 @@ class MovieListAdapter(val clickListener: MovieClickListener)
                     .error(R.drawable.ic_baseline_broken_image_24))
                 .into(binding.imgItemMainMovieTv)
             binding.txtTitleItemMainMovieTv.text = item.title
-            binding.txtSubtitleItemMainMovieTv.text = if (item.releaseDate.isEmpty()) "-" else item.releaseDate.take(4)
+            binding.txtSubtitleItemMainMovieTv.text = item.releaseDate.getYear()
             binding.txtDescItemMainMovieTv.text = item.overview
             binding.txtRatingItemMainMovieTv.text = item.voteAverage.toString()
             binding.cvMovieTv.setOnClickListener {

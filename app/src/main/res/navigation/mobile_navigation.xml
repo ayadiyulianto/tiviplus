@@ -26,8 +26,10 @@
         android:name="com.pitchblack.tiviplus.ui.people.main.PeopleFragment"
         android:label="@string/people"
         tools:layout="@layout/fragment_people" />
+
     <fragment
         android:id="@+id/movieDetailFragment"
+        android:name="com.pitchblack.tiviplus.ui.movie.detail.MovieDetailFragment"
         android:label="fragment_movie_detail"
         tools:layout="@layout/fragment_movie_detail" >
         <argument

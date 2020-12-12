@@ -25,6 +25,10 @@ object RestAPI {
         return "$IMAGE_BASE_URL/w185$url"
     }
 
+    fun getYoutubePlaceholder(key: String): String {
+        return "https://img.youtube.com/vi/$key/mqdefault.jpg"
+    }
+
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(10, TimeUnit.SECONDS)
         .writeTimeout(10, TimeUnit.SECONDS)

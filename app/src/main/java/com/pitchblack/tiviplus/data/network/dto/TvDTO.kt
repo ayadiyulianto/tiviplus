@@ -1,18 +1,20 @@
 package com.pitchblack.tiviplus.data.network.dto
 
-import com.pitchblack.tiviplus.data.model.Movie
 import com.pitchblack.tiviplus.data.model.TV
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class TvDTO (
     val id: Int,
-    val popularity: Double,
-    val overview: String,
-    val poster_path: String,
-    val first_air_date: String,
-    val name: String,
-    val vote_average: Double
+    val popularity: Double = 0.0,
+    val overview: String = "",
+    val poster_path: String = "",
+    val first_air_date: String = "",
+    val name: String = "",
+    val vote_average: Double = 0.0
 )
 
+@JsonClass(generateAdapter = true)
 data class TvListDTO (
     val results: List<TvDTO>
 )
