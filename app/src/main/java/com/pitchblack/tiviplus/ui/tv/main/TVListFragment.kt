@@ -30,8 +30,6 @@ class TVListFragment : Fragment() {
         }
     }
 
-    private lateinit var viewModel: TVListViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,7 +45,9 @@ class TVListFragment : Fragment() {
         tvListViewModel = ViewModelProvider(this, TVListViewModel.Factory(tabId))
             .get(getString(tabId), TVListViewModel::class.java)
 
-        adapter =TVListAdapter()
+        adapter =TVListAdapter(TvItemClickListener {
+            (parentFragment as TVFragment).navigateToDetailFragment(it)
+        })
         binding.rvMainTv.layoutManager = LinearLayoutManager(activity)
         binding.rvMainTv.adapter = adapter
         tvListViewModel.listTV.observe(viewLifecycleOwner, Observer {

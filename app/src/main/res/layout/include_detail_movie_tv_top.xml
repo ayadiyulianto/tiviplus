@@ -60,6 +60,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:maxLines="3"
         app:layout_constraintStart_toStartOf="@id/txt_content_rating"
         app:layout_constraintEnd_toEndOf="@id/txt_title"
         app:layout_constraintTop_toBottomOf="@id/txt_content_rating"
@@ -70,10 +71,12 @@
         style="@style/TMDbText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="@string/tmdb"
-        app:layout_constraintStart_toStartOf="@id/txt_genre"
         app:layout_constraintBottom_toTopOf="@id/barrier"
-        app:layout_constraintTop_toBottomOf="@id/txt_genre"/>
+        app:layout_constraintStart_toStartOf="@id/txt_genre"
+        app:layout_constraintTop_toBottomOf="@id/txt_genre"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/txt_rating"
@@ -107,7 +110,7 @@
 
     <TextView
         android:id="@+id/txt_ov"
-        style="@style/TitleText"
+        style="@style/TitleText.Big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -156,7 +159,7 @@
 
     <TextView
         android:id="@+id/txt_cast"
-        style="@style/TitleText"
+        style="@style/TitleText.Big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

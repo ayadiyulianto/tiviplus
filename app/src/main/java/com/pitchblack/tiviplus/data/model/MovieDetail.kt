@@ -1,7 +1,5 @@
 package com.pitchblack.tiviplus.data.model
 
-import com.pitchblack.tiviplus.data.network.dto.*
-
 data class MovieDetail (
     val id: Int,
     val title: String,
@@ -18,14 +16,7 @@ data class MovieDetail (
     val homepage: String,
     val revenue: Int,
     val budget: Int,
-    val originalLanguage: String,
     val originalTitle: String,
     val productionCompanies: String,
-    val productionCountries: String,
-    /*val contentRating: ContentRating,*/
-    val credits: List<Cast>,
-    val videos: List<Video>,
-    val reviews: List<Review>,
-    val recommendations: List<Movie>,
-    val similar: List<Movie>
+    val productionCountries: String
 )

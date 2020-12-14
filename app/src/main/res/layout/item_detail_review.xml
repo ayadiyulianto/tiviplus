@@ -5,32 +5,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    app:cardBackgroundColor="@color/colorPrimary"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    app:cardBackgroundColor="@color/colorAccent"
     app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:padding="16dp">
 
         <TextView
             android:id="@+id/txt_people_name"
-            style="@style/TitleText.2Line"
+            style="@style/TitleText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:lines="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/dummy_title" />
 
         <TextView
+            android:id="@+id/txt_rating"
+            style="@style/TitleText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:background="@drawable/border_content_rating"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_people_name"
+            tools:text="@string/rating_star" />
+
+        <TextView
+            android:id="@+id/txt_created_at"
+            style="@style/DescriptionText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/txt_rating"
+            app:layout_constraintBaseline_toBaselineOf="@id/txt_rating"
+            tools:text="@string/dummy_title" />
+
+        <TextView
             android:id="@+id/txt_people_content"
-            style="@style/DescriptionText.4Line"
+            style="@style/DescriptionText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/txt_people_name"
+            android:lines="5"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/txt_rating"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/txt_people_name"
             app:layout_constraintEnd_toEndOf="@id/txt_people_name"

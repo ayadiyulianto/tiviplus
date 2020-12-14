@@ -25,7 +25,9 @@ class MovieListAdapter(private val clickListener: MovieClickListener)
         holder.bind(item, clickListener)
     }
 
-    class ViewHolder private constructor(val binding: ItemMovieTvBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ItemMovieTvBinding)
+        : RecyclerView.ViewHolder(binding.root) {
+
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)

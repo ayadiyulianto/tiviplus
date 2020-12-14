@@ -7,10 +7,12 @@ import com.squareup.moshi.JsonClass
 data class CastDTO(
     val id: Int,
     val name: String = "",
-    val profile_path: String = "",
+    val profile_path: String? = "",
     val character: String = "",
     val order: Int = 0
-)
+) {
+    val profilePath = profile_path ?: ""
+}
 
 @JsonClass(generateAdapter = true)
 data class CreditsDTO(
@@ -22,7 +24,7 @@ fun CreditsDTO.toDomainModel() : List<Cast> {
         Cast(
             id = it.id,
             name = it.name,
-            profilePath = it.profile_path,
+            profilePath = it.profilePath,
             character = it.character
         )
     }

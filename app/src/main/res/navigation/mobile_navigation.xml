@@ -19,7 +19,11 @@
         android:id="@+id/navigation_tv"
         android:name="com.pitchblack.tiviplus.ui.tv.main.TVFragment"
         android:label="@string/tv_shows"
-        tools:layout="@layout/fragment_tv" />
+        tools:layout="@layout/fragment_tv" >
+        <action
+            android:id="@+id/action_navigation_tv_to_tvDetailFragment"
+            app:destination="@id/tvDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_people"
@@ -34,6 +38,15 @@
         tools:layout="@layout/fragment_movie_detail" >
         <argument
             android:name="movieId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvDetailFragment"
+        android:name="com.pitchblack.tiviplus.ui.tv.detail.TvDetailFragment"
+        android:label="fragment_tv_detail"
+        tools:layout="@layout/fragment_tv_detail" >
+        <argument
+            android:name="tvId"
             app:argType="integer" />
     </fragment>
 

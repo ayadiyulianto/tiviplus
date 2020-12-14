@@ -8,11 +8,13 @@ data class MovieDTO (
     val id: Int,
     val popularity: Double = 0.0,
     val overview: String = "",
-    val poster_path: String = "",
+    val poster_path: String? = "",
     val release_date: String = "",
     val title: String = "",
     val vote_average: Double = 0.0
-)
+) {
+    val posterPath = poster_path ?: ""
+}
 
 @JsonClass(generateAdapter = true)
 data class MovieListDTO (
@@ -24,7 +26,7 @@ fun MovieListDTO.toDomainModel(): List<Movie> {
         Movie(
             id = it.id,
             overview = it.overview,
-            posterPath = it.poster_path,
+            posterPath = it.posterPath,
             releaseDate = it.release_date,
             title = it.title,
             voteAverage = it.vote_average

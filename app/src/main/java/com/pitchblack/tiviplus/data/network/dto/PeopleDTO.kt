@@ -10,9 +10,11 @@ data class PeopleDTO (
     val popularity: Double = 0.0,
     val known_for_department: String = "",
     val name: String = "",
-    val profile_path: String = "",
+    val profile_path: String? = "",
     val known_for: List<KnownForDTO>
-)
+) {
+    val profilePath = profile_path ?: ""
+}
 
 @JsonClass(generateAdapter = true)
 data class PeopleListDTO(
@@ -38,7 +40,7 @@ fun PeopleListDTO.toDomainModel(): List<People> {
             id = it.id,
             department = it.known_for_department,
             name = it.name,
-            profilePath = it.profile_path,
+            profilePath = it.profilePath,
             knownFor = it.known_for.concatToString()
         )
     }

@@ -33,17 +33,6 @@ class MovieListViewModel(private val tabId: Int = TAB_TITLES[0]) : ViewModel() {
         }
     }
 
-    private val _movieIdSelected = MutableLiveData<Int>()
-    val movieIdSelected get() = _movieIdSelected
-
-    fun onMovieItemClicked(id: Int) {
-        _movieIdSelected.value = id
-    }
-
-    fun onMovieDetailNavigated() {
-        _movieIdSelected.value = null
-    }
-
     class Factory(private val tabId: Int) : ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(p0: Class<T>): T {
             @Suppress("UNCHECKED_CAST")

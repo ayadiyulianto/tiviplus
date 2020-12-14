@@ -1,4 +1,4 @@
-package com.pitchblack.tiviplus.ui.detail
+package com.pitchblack.tiviplus.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -40,6 +40,7 @@ class VideoListAdapter: ListAdapter<Video, VideoListAdapter.ViewHolder>(VideoEnt
                     .placeholder(R.drawable.animation_loading)
                     .error(R.drawable.ic_baseline_broken_image_24))
                 .into(binding.imgDetailVideoThumbnail)
+            binding.txtVideoName.text = item.name
         }
     }
 }

@@ -23,13 +23,7 @@ data class MovieDetailDTO(
     val original_language: String = "",
     val original_title: String = "",
     val production_companies: List<CompanyDTO>,
-    val production_countries: List<CountryDTO>,
-    /*val release_dates: ContentRating,*/
-    val credits: CreditsDTO,
-    val videos: VideosDTO,
-    val reviews: ReviewsDTO,
-    val recommendations: MovieListDTO,
-    val similar: MovieListDTO
+    val production_countries: List<CountryDTO>
 )
 
 @JsonClass(generateAdapter = true)
@@ -52,47 +46,40 @@ fun MovieDetailDTO.toDomainModel(): MovieDetail {
         posterPath = poster_path,
         overview = overview,
         tagline = tagline,
-        genres = genres.concat0ToString(),
+        genres = genres.concatGenreToString(),
         releaseDate = release_date,
         runtime = runtime,
         voteAverage = vote_average,
         voteCount = vote_count,
-        spokenLanguages = spoken_languages.concatToString(),
+        spokenLanguages = spoken_languages.concatLangToString(),
         revenue = revenue,
         homepage = homepage,
         budget = budget,
-        originalLanguage = original_language,
         originalTitle = original_title,
-        productionCompanies = production_companies.concat2ToString(),
-        productionCountries = production_countries.concat3ToString(),
-        /*contentRating: ContentRating,*/
-        credits = credits.toDomainModel(),
-        videos = videos.toDomainModel(),
-        reviews = reviews.toDomainModel(),
-        recommendations = recommendations.toDomainModel(),
-        similar = similar.toDomainModel()
+        productionCompanies = production_companies.concatCompanyToString(),
+        productionCountries = production_countries.concatCountryToString()
     )
 }
 
-fun List<GenreDTO>.concat0ToString(): String {
+fun List<GenreDTO>.concatGenreToString(): String {
     return this.joinToString(", ") {
         it.name
     }
 }
 
-fun List<LanguageDTO>.concatToString(): String {
+fun List<LanguageDTO>.concatLangToString(): String {
     return this.joinToString(", ") {
         it.name
     }
 }
 
-fun List<CompanyDTO>.concat2ToString(): String {
+fun List<CompanyDTO>.concatCompanyToString(): String {
     return this.joinToString(", ") {
         it.name
     }
 }
 
-fun List<CountryDTO>.concat3ToString(): String {
+fun List<CountryDTO>.concatCountryToString(): String {
     return this.joinToString(", ") {
         it.name
     }

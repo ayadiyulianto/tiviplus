@@ -40,22 +40,15 @@ class MovieListFragment : Fragment() {
         val tabId = arguments?.getInt(ARG_TYPE) ?: TAB_TITLES[0]
         movieListViewModel = ViewModelProvider(this, MovieListViewModel.Factory(tabId))
             .get(getString(tabId), MovieListViewModel::class.java)
-        adapter = MovieListAdapter(MovieClickListener {
-            movieListViewModel.onMovieItemClicked(it)
-        })
 
+        adapter = MovieListAdapter(MovieClickListener {
+            (parentFragment as MovieFragment).navigateToDetailFragment(it)
+        })
         binding.rvMainMovie.layoutManager = LinearLayoutManager(activity)
         binding.rvMainMovie.adapter = adapter
         movieListViewModel.listMovie.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
-            }
-        })
-
-        movieListViewModel.movieIdSelected.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                (parentFragment as MovieFragment).navigateToDetailFragment(it)
-                movieListViewModel.onMovieDetailNavigated()
             }
         })
 

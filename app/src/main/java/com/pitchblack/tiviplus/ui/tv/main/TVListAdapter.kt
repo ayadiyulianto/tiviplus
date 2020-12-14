@@ -13,7 +13,8 @@ import com.pitchblack.tiviplus.data.model.TV
 import com.pitchblack.tiviplus.data.network.RestAPI
 import com.pitchblack.tiviplus.databinding.ItemMovieTvBinding
 
-class TVListAdapter: ListAdapter<TV, TVListAdapter.ViewHolder>(TVEntityDiffCallback()) {
+class TVListAdapter(private val clickListener: TvItemClickListener)
+    : ListAdapter<TV, TVListAdapter.ViewHolder>(TVEntityDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TVListAdapter.ViewHolder {
         return  ViewHolder.from(parent)
@@ -21,10 +22,11 @@ class TVListAdapter: ListAdapter<TV, TVListAdapter.ViewHolder>(TVEntityDiffCallb
 
     override fun onBindViewHolder(holder: TVListAdapter.ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
 
-    class ViewHolder private constructor (val binding: ItemMovieTvBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor (val binding: ItemMovieTvBinding)
+        : RecyclerView.ViewHolder(binding.root) {
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
@@ -34,7 +36,7 @@ class TVListAdapter: ListAdapter<TV, TVListAdapter.ViewHolder>(TVEntityDiffCallb
             }
         }
 
-        fun bind(item: TV){
+        fun bind(item: TV, clickListener: TvItemClickListener){
             Glide.with(binding.root.context)
                 .load(RestAPI.getPosterPath(item.posterPath))
                 .apply(
@@ -46,6 +48,9 @@ class TVListAdapter: ListAdapter<TV, TVListAdapter.ViewHolder>(TVEntityDiffCallb
             binding.txtSubtitleItemMainMovieTv.text = item.firstAirDate.getYear()
             binding.txtDescItemMainMovieTv.text = item.overview
             binding.txtRatingItemMainMovieTv.text = item.voteAverage.toString()
+            binding.cvMovieTv.setOnClickListener {
+                clickListener.onClick(item)
+            }
         }
 
     }
@@ -59,4 +64,8 @@ class  TVEntityDiffCallback: DiffUtil.ItemCallback<TV>() {
     override fun areContentsTheSame(oldItem: TV, newItem: TV): Boolean {
         return oldItem == newItem
     }
+}
+
+class TvItemClickListener(val clickListener: (id: Int) -> Unit) {
+    fun onClick(tv: TV) = clickListener(tv.id)
 }

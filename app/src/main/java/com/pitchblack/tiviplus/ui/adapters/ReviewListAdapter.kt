@@ -1,10 +1,11 @@
-package com.pitchblack.tiviplus.ui.detail
+package com.pitchblack.tiviplus.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.pitchblack.tiviplus.R
 import com.pitchblack.tiviplus.data.model.Review
 import com.pitchblack.tiviplus.databinding.ItemDetailReviewBinding
 
@@ -30,6 +31,8 @@ class ReviewListAdapter: ListAdapter<Review, ReviewListAdapter.ViewHolder>(Revie
 
         fun bind(item: Review) {
             binding.txtPeopleName.text = item.author
+            binding.txtRating.text = binding.root.context.getString(R.string.rating_star, item.rating)
+            binding.txtCreatedAt.text = item.createdAt
             binding.txtPeopleContent.text = item.content
         }
     }

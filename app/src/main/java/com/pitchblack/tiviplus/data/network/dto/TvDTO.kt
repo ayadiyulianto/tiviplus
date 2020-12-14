@@ -8,11 +8,13 @@ data class TvDTO (
     val id: Int,
     val popularity: Double = 0.0,
     val overview: String = "",
-    val poster_path: String = "",
+    val poster_path: String? = "",
     val first_air_date: String = "",
     val name: String = "",
     val vote_average: Double = 0.0
-)
+) {
+    val posterPath = poster_path ?: ""
+}
 
 @JsonClass(generateAdapter = true)
 data class TvListDTO (
@@ -24,7 +26,7 @@ fun TvListDTO.toDomainModel(): List<TV> {
         TV(
             id = it.id,
             overview = it.overview,
-            posterPath = it.poster_path,
+            posterPath = it.posterPath,
             firstAirDate = it.first_air_date,
             name = it.name,
             voteAverage = it.vote_average

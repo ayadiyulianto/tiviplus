@@ -5,9 +5,11 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.pitchblack.tiviplus.R
 import com.pitchblack.tiviplus.databinding.FragmentTvBinding
+import com.pitchblack.tiviplus.ui.movie.main.MovieFragmentDirections
 import com.pitchblack.tiviplus.ui.people.main.PeopleAdapter
 
 class TVFragment : Fragment() {
@@ -37,16 +39,20 @@ class TVFragment : Fragment() {
             setDisplayShowHomeEnabled(true)
             setIcon(R.drawable.ic_baseline_local_movies_24)
         }
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         tvPagerAdapter = TVPagerAdapter(this)
         binding.viewPager.adapter = tvPagerAdapter
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = getString(com.pitchblack.tiviplus.ui.movie.main.TAB_TITLES[position])
         }.attach()
+
+        return binding.root
+    }
+
+    fun navigateToDetailFragment(tvId: Int) {
+        findNavController().navigate(
+            TVFragmentDirections.actionNavigationTvToTvDetailFragment(tvId)
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

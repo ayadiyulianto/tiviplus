@@ -1,4 +1,4 @@
-package com.pitchblack.tiviplus.ui.detail
+package com.pitchblack.tiviplus.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.pitchblack.tiviplus.R
-import com.pitchblack.tiviplus.data.model.Cast
+import com.pitchblack.tiviplus.Utils.getYear
+import com.pitchblack.tiviplus.data.model.Season
 import com.pitchblack.tiviplus.data.network.RestAPI
-import com.pitchblack.tiviplus.databinding.ItemDetailCastBinding
+import com.pitchblack.tiviplus.databinding.ItemDetailSeasonBinding
 
-class CastsListAdapter: ListAdapter<Cast, CastsListAdapter.ViewHolder>(CastEntityDiffCallback()) {
+class SeasonListAdapter: ListAdapter<Season, SeasonListAdapter.ViewHolder>(SeasonEntityDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -23,35 +24,37 @@ class CastsListAdapter: ListAdapter<Cast, CastsListAdapter.ViewHolder>(CastEntit
         holder.bind(item)
     }
 
-    class ViewHolder private constructor(val binding: ItemDetailCastBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ItemDetailSeasonBinding): RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
-                val binding = ItemDetailCastBinding.inflate(inflater, parent, false)
+                val binding = ItemDetailSeasonBinding.inflate(inflater, parent, false)
                 return ViewHolder(binding)
             }
         }
 
-        fun bind(item: Cast) {
+        fun bind(item: Season) {
             Glide.with(binding.root.context)
-                .load(RestAPI.getProfilePath(item.profilePath))
+                .load(RestAPI.getPosterPath(item.posterPath))
                 .apply(
                     RequestOptions()
                         .placeholder(R.drawable.animation_loading)
                         .error(R.drawable.ic_baseline_broken_image_24))
-                .into(binding.imgPeople)
-            binding.txtPeopleName.text = item.name
-            binding.txtPeopleRole.text = item.character
+                .into(binding.imgPoster)
+            binding.txtTitle.text = item.name
+            binding.txtYear.text = binding.root.context
+                .getString(R.string.season_stats, item.airDate.getYear(), "${item.episodeCount} episode")
+            binding.txtOverview.text = item.overview
         }
     }
 }
 
-class CastEntityDiffCallback: DiffUtil.ItemCallback<Cast>() {
-    override fun areItemsTheSame(oldItem: Cast, newItem: Cast): Boolean {
+class SeasonEntityDiffCallback: DiffUtil.ItemCallback<Season>() {
+    override fun areItemsTheSame(oldItem: Season, newItem: Season): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Cast, newItem: Cast): Boolean {
+    override fun areContentsTheSame(oldItem: Season, newItem: Season): Boolean {
         return oldItem == newItem
     }
 }

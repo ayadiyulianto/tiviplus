@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -14,10 +15,12 @@ import com.pitchblack.tiviplus.Utils.toHour
 import com.pitchblack.tiviplus.data.model.MovieDetail
 import com.pitchblack.tiviplus.data.network.RestAPI
 import com.pitchblack.tiviplus.databinding.FragmentMovieDetailBinding
-import com.pitchblack.tiviplus.ui.detail.MovieGridAdapter
-import com.pitchblack.tiviplus.ui.detail.VideoListAdapter
-import com.pitchblack.tiviplus.ui.detail.CastsListAdapter
-import com.pitchblack.tiviplus.ui.detail.ReviewListAdapter
+import com.pitchblack.tiviplus.ui.adapters.MovieGridAdapter
+import com.pitchblack.tiviplus.ui.adapters.VideoListAdapter
+import com.pitchblack.tiviplus.ui.adapters.CastsListAdapter
+import com.pitchblack.tiviplus.ui.adapters.ReviewListAdapter
+import java.text.NumberFormat
+import java.util.*
 
 class MovieDetailFragment : Fragment() {
 
@@ -43,11 +46,33 @@ class MovieDetailFragment : Fragment() {
     ): View {
         _binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
 
+        initToolbar()
+
         val arguments = MovieDetailFragmentArgs.fromBundle(requireArguments())
-        Toast.makeText(context, "id : ${arguments.movieId}", Toast.LENGTH_LONG).show()
         viewModel = ViewModelProvider(this, MovieDetailViewModel.Factory(arguments.movieId))
             .get(MovieDetailViewModel::class.java)
 
+        initAdapter()
+        initObserver()
+
+        return binding.root
+    }
+
+    private fun initToolbar() {
+        if(activity is AppCompatActivity){
+            (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        }
+        (activity as AppCompatActivity).supportActionBar?.apply {
+            setDisplayShowTitleEnabled(false)
+            setDisplayShowHomeEnabled(true)
+            setDisplayHomeAsUpEnabled(true)
+        }
+        binding.toolbar.setNavigationOnClickListener {
+            (activity as AppCompatActivity).onBackPressed()
+        }
+    }
+
+    private fun initAdapter() {
         videoListAdapter = VideoListAdapter()
         binding.includeTop.rvVideos.adapter = videoListAdapter
         castsListAdapter = CastsListAdapter()
@@ -58,14 +83,39 @@ class MovieDetailFragment : Fragment() {
         binding.includeBottom.rvRecommendations.adapter = recommendationGridAdapter
         similarGridAdapter = MovieGridAdapter()
         binding.includeBottom.rvSimilar.adapter = similarGridAdapter
+    }
 
+    private fun initObserver() {
         viewModel.movie.observe(viewLifecycleOwner, Observer {
             it?.let {
                 showToUI(it)
             }
         })
-
-        return binding.root
+        viewModel.videos.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                videoListAdapter.submitList(it)
+            }
+        })
+        viewModel.casts.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                castsListAdapter.submitList(it)
+            }
+        })
+        viewModel.reviews.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                reviewListAdapter.submitList(it)
+            }
+        })
+        viewModel.recommendations.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                recommendationGridAdapter.submitList(it)
+            }
+        })
+        viewModel.similar.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                similarGridAdapter.submitList(it)
+            }
+        })
     }
 
     private fun showToUI(movie: MovieDetail) {
@@ -85,13 +135,14 @@ class MovieDetailFragment : Fragment() {
         binding.includeTop.txtRatingVotes.text = getString(R.string.rating_votes, movie.voteCount)
         binding.includeTop.txtTagline.text = movie.tagline
         binding.includeTop.txtOverview.text = movie.overview
-        videoListAdapter.submitList(movie.videos)
-        castsListAdapter.submitList(movie.credits)
-        reviewListAdapter.submitList(movie.reviews)
-        binding.includeBottom.viewgroupFacts.txtOriTitleField.text = movie.originalTitle
-        binding.includeBottom.viewgroupFacts.txtOriLangField.text = movie.originalLanguage
-        recommendationGridAdapter.submitList(movie.recommendations)
-        similarGridAdapter.submitList(movie.similar)
+        binding.includeDetails.txtOriTitleField.text = movie.originalTitle
+        binding.includeDetails.txtReleaseDateField.text = movie.releaseDate
+        binding.includeDetails.txtCountryField.text = movie.productionCountries
+        binding.includeDetails.txtSpokenLangField.text = movie.spokenLanguages
+        binding.includeDetails.txtCompanyField.text = movie.productionCompanies
+        val formatter = NumberFormat.getCurrencyInstance(Locale("en", "US"))
+        binding.includeDetails.txtBudgetField.text = formatter.format(movie.budget)
+        binding.includeDetails.txtRevenueField.text = formatter.format(movie.revenue)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

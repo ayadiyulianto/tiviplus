@@ -13,11 +13,11 @@ data class VideoDTO(
 )
 
 @JsonClass(generateAdapter = true)
-data class VideosDTO(
+data class VideoListDTO(
     val results: List<VideoDTO>
 )
 
-fun VideosDTO.toDomainModel(): List<Video> {
+fun VideoListDTO.toDomainModel(): List<Video> {
     return results.map {
         Video(id = it.id, key = it.key, name = it.name)
     }

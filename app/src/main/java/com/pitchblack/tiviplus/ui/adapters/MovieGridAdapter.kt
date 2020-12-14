@@ -1,4 +1,4 @@
-package com.pitchblack.tiviplus.ui.detail
+package com.pitchblack.tiviplus.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -35,7 +35,7 @@ class MovieGridAdapter: ListAdapter<Movie, MovieGridAdapter.ViewHolder>(MovieEnt
 
         fun bind(item: Movie) {
             Glide.with(binding.root.context)
-                .load(RestAPI.getYoutubePlaceholder(item.posterPath))
+                .load(RestAPI.getPosterPath(item.posterPath))
                 .apply(
                     RequestOptions()
                         .placeholder(R.drawable.animation_loading)

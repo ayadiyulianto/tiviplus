@@ -5,36 +5,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    app:cardBackgroundColor="@color/colorPrimary"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    app:cardBackgroundColor="@color/colorAccent"
     app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="150dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/img_poster"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
             android:contentDescription="@string/app_name"
             android:adjustViewBounds="true"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/txt_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:src="@drawable/swgpro" />
 
         <TextView
             android:id="@+id/txt_title"
-            style="@style/TitleText.2Line.Small"
+            style="@style/TitleText.Small"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:lines="2"
+            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/img_poster"
+            app:layout_constraintBottom_toTopOf="@id/txt_year"
             tools:text="@string/dummy_title" />
 
         <TextView

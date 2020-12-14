@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/txt_facts"
+        style="@style/TitleText.Big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/details"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_ori_title"
+        style="@style/TitleText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/original_title"
+        app:layout_constraintTop_toBottomOf="@id/txt_facts"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_ori_title_field"
+        style="@style/DescriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt_ori_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/original_title"/>
+
+    <TextView
+        android:id="@+id/txt_creator"
+        style="@style/TitleText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/created_by"
+        app:layout_constraintTop_toBottomOf="@id/txt_ori_title_field"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_creator_field"
+        style="@style/DescriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt_creator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/original_title"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <TextView
+        android:id="@+id/txt_release_date"
+        style="@style/TitleText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/first_air_date"
+        app:layout_constraintTop_toBottomOf="@id/txt_creator_field"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_release_date_field"
+        style="@style/DescriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt_release_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/original_title"/>
+
+    <TextView
+        android:id="@+id/txt_last_date"
+        style="@style/TitleText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/last_air_date"
+        app:layout_constraintTop_toTopOf="@id/txt_release_date"
+        app:layout_constraintStart_toStartOf="@id/guideline"/>
+
+    <TextView
+        android:id="@+id/txt_last_date_field"
+        style="@style/DescriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt_last_date"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        tools:text="@string/revenue"/>
+
+    <TextView
+        android:id="@+id/txt_number_season"
+        style="@style/TitleText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/number_of_season"
+        app:layout_constraintTop_toBottomOf="@id/txt_release_date_field"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_number_season_field"
+        style="@style/DescriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt_number_season"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/original_title"/>
+
+    <TextView
+        android:id="@+id/txt_number_episode"
+        style="@style/TitleText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/number_of_episode"
+        app:layout_constraintTop_toTopOf="@id/txt_number_season"
+        app:layout_constraintStart_toStartOf="@id/guideline"/>
+
+    <TextView
+        android:id="@+id/txt_number_episode_field"
+        style="@style/DescriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt_number_episode"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        tools:text="@string/revenue"/>
+
+    <TextView
+        android:id="@+id/txt_country_of_origin"
+        style="@style/TitleText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/country_of_origin"
+        app:layout_constraintTop_toBottomOf="@id/txt_number_season_field"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_country_field"
+        style="@style/DescriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt_country_of_origin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/original_title"/>
+
+    <TextView
+        android:id="@+id/txt_spoken_lang"
+        style="@style/TitleText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/language_spoken"
+        app:layout_constraintTop_toBottomOf="@id/txt_country_field"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_spoken_lang_field"
+        style="@style/DescriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt_spoken_lang"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/original_title"/>
+
+
+    <TextView
+        android:id="@+id/txt_production_companies"
+        style="@style/TitleText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/production_companies"
+        app:layout_constraintTop_toBottomOf="@id/txt_spoken_lang_field"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_company_field"
+        style="@style/DescriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt_production_companies"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/original_title"/>
+
+    <TextView
+        android:id="@+id/txt_networks"
+        style="@style/TitleText.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/networks"
+        app:layout_constraintTop_toBottomOf="@id/txt_company_field"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_networks_field"
+        style="@style/DescriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt_networks"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/original_title"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
