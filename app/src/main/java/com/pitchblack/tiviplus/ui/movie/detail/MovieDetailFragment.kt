@@ -1,44 +1,41 @@
 package com.pitchblack.tiviplus.ui.movie.detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.pitchblack.tiviplus.R
-import com.pitchblack.tiviplus.Utils.getYear
-import com.pitchblack.tiviplus.Utils.toHour
+import com.pitchblack.tiviplus.utils.DataUtils.getYear
+import com.pitchblack.tiviplus.utils.DataUtils.toHour
 import com.pitchblack.tiviplus.data.model.MovieDetail
-import com.pitchblack.tiviplus.data.network.RestAPI
+import com.pitchblack.tiviplus.utils.NetworkUtils
 import com.pitchblack.tiviplus.databinding.FragmentMovieDetailBinding
-import com.pitchblack.tiviplus.ui.adapters.MovieGridAdapter
-import com.pitchblack.tiviplus.ui.adapters.VideoListAdapter
-import com.pitchblack.tiviplus.ui.adapters.CastsListAdapter
-import com.pitchblack.tiviplus.ui.adapters.ReviewListAdapter
+import com.pitchblack.tiviplus.ui.commons.MovieGridAdapter
+import com.pitchblack.tiviplus.ui.commons.VideoListAdapter
+import com.pitchblack.tiviplus.ui.commons.CastsListAdapter
+import com.pitchblack.tiviplus.ui.commons.ReviewListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
 import java.util.*
 
+@AndroidEntryPoint
 class MovieDetailFragment : Fragment() {
 
     private var _binding: FragmentMovieDetailBinding? = null
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: MovieDetailViewModel
+    private val viewModel: MovieDetailViewModel by viewModels()
     private lateinit var videoListAdapter: VideoListAdapter
     private lateinit var castsListAdapter: CastsListAdapter
     private lateinit var reviewListAdapter: ReviewListAdapter
     private lateinit var recommendationGridAdapter: MovieGridAdapter
     private lateinit var similarGridAdapter: MovieGridAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,11 +44,6 @@ class MovieDetailFragment : Fragment() {
         _binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
 
         initToolbar()
-
-        val arguments = MovieDetailFragmentArgs.fromBundle(requireArguments())
-        viewModel = ViewModelProvider(this, MovieDetailViewModel.Factory(arguments.movieId))
-            .get(MovieDetailViewModel::class.java)
-
         initAdapter()
         initObserver()
 
@@ -70,6 +62,7 @@ class MovieDetailFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             (activity as AppCompatActivity).onBackPressed()
         }
+        setHasOptionsMenu(true)
     }
 
     private fun initAdapter() {
@@ -120,7 +113,7 @@ class MovieDetailFragment : Fragment() {
 
     private fun showToUI(movie: MovieDetail) {
         Glide.with(binding.root.context)
-            .load(RestAPI.getPosterPath(movie.posterPath))
+            .load(NetworkUtils.getPosterPath(movie.posterPath))
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.animation_loading)

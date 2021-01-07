@@ -9,7 +9,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pitchblack.tiviplus.databinding.FragmentMovieListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieListFragment : Fragment() {
 
     private var _binding: FragmentMovieListBinding? = null
@@ -20,7 +22,7 @@ class MovieListFragment : Fragment() {
     private lateinit var adapter: MovieListAdapter
 
     companion object {
-        private const val ARG_TYPE = "tab"
+        const val ARG_TYPE = "tab"
         @JvmStatic
         fun newInstance(tab: Int): MovieListFragment {
             return MovieListFragment().apply {
@@ -38,8 +40,7 @@ class MovieListFragment : Fragment() {
         _binding = FragmentMovieListBinding.inflate(inflater, container, false)
 
         val tabId = arguments?.getInt(ARG_TYPE) ?: TAB_TITLES[0]
-        movieListViewModel = ViewModelProvider(this, MovieListViewModel.Factory(tabId))
-            .get(getString(tabId), MovieListViewModel::class.java)
+        movieListViewModel = ViewModelProvider(this).get(getString(tabId), MovieListViewModel::class.java)
 
         adapter = MovieListAdapter(MovieClickListener {
             (parentFragment as MovieFragment).navigateToDetailFragment(it)

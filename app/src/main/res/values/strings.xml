@@ -2,6 +2,7 @@
     <string name="app_name">tivi+</string>
     <string name="movies">Movies</string>
     <string name="tv_shows">TV Shows</string>
+    <string name="celebs">Celebs</string>
 
     <string name="tmdb">TMDb</string>
 
@@ -28,7 +29,6 @@
     <string name="recommendation">Recommendations</string>
     <string name="similar_with_this">Similar with this</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="people">People</string>
     <string name="popular">Popular</string>
     <string name="top_rated">Top Rated</string>
     <string name="upcoming">Upcoming</string>
@@ -52,4 +52,9 @@
     <string name="number_of_episode">Number of Episode</string>
     <string name="created_by">Created by</string>
     <string name="rating_star">\u2605 %1$d / 10</string>
+    <string name="born">Born : %1$s</string>
+    <string name="place_of_birth">Place of birth : %1$s.</string>
+    <string name="filmography">Filmography</string>
+    <string name="profile">Profile Image</string>
+    <string name="character">as %1$s (%2$s)</string>
 </resources>

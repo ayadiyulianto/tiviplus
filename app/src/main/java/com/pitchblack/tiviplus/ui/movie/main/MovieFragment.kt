@@ -9,7 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.pitchblack.tiviplus.R
 import com.pitchblack.tiviplus.databinding.FragmentMovieBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieFragment : Fragment() {
 
     private var _binding: FragmentMovieBinding? = null
@@ -18,16 +20,23 @@ class MovieFragment : Fragment() {
 
     private lateinit var moviePagerAdapter: MoviePagerAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMovieBinding.inflate(inflater, container, false)
+
+        setToolbar()
+        moviePagerAdapter = MoviePagerAdapter(this)
+        binding.viewPager.adapter = moviePagerAdapter
+        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
+            tab.text = getString(TAB_TITLES[position])
+        }.attach()
+
+        return binding.root
+    }
+
+    private fun setToolbar() {
         if(activity is AppCompatActivity){
             (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         }
@@ -36,14 +45,7 @@ class MovieFragment : Fragment() {
             setDisplayShowHomeEnabled(true)
             setIcon(R.drawable.ic_baseline_local_movies_24)
         }
-
-        moviePagerAdapter = MoviePagerAdapter(this)
-        binding.viewPager.adapter = moviePagerAdapter
-        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
-            tab.text = getString(TAB_TITLES[position])
-        }.attach()
-
-        return binding.root
+        setHasOptionsMenu(true)
     }
 
     fun navigateToDetailFragment(movieId: Int) {

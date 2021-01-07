@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.pitchblack.tiviplus.R
-import com.pitchblack.tiviplus.Utils.getYear
+import com.pitchblack.tiviplus.utils.DataUtils.getYear
 import com.pitchblack.tiviplus.data.model.Movie
-import com.pitchblack.tiviplus.data.network.RestAPI
+import com.pitchblack.tiviplus.utils.NetworkUtils
 import com.pitchblack.tiviplus.databinding.ItemMovieTvBinding
 
 class MovieListAdapter(private val clickListener: MovieClickListener)
@@ -38,7 +38,7 @@ class MovieListAdapter(private val clickListener: MovieClickListener)
 
         fun bind(item: Movie, clickListener: MovieClickListener) {
             Glide.with(binding.root.context)
-                .load(RestAPI.getPosterPath(item.posterPath))
+                .load(NetworkUtils.getPosterPath(item.posterPath))
                 .apply(RequestOptions()
                     .placeholder(R.drawable.animation_loading)
                     .error(R.drawable.ic_baseline_broken_image_24))
@@ -55,15 +55,12 @@ class MovieListAdapter(private val clickListener: MovieClickListener)
 }
 
 class MovieEntityDiffCallback : DiffUtil.ItemCallback<Movie>() {
-
     override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem.id == newItem.id
     }
-
     override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem == newItem
     }
-
 }
 
 class MovieClickListener(val clickListener: (id: Int) -> Unit) {

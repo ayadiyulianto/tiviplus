@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pitchblack.tiviplus.databinding.FragmentTvListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TVListFragment : Fragment() {
 
     private var _binding: FragmentTvListBinding? = null
@@ -35,15 +37,9 @@ class TVListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTvListBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         val tabId = arguments?.getInt(ARG_TYPE) ?: TAB_TITLES[0]
-        tvListViewModel = ViewModelProvider(this, TVListViewModel.Factory(tabId))
-            .get(getString(tabId), TVListViewModel::class.java)
+        tvListViewModel = ViewModelProvider(this).get(getString(tabId), TVListViewModel::class.java)
 
         adapter =TVListAdapter(TvItemClickListener {
             (parentFragment as TVFragment).navigateToDetailFragment(it)
@@ -55,6 +51,8 @@ class TVListFragment : Fragment() {
                 adapter.submitList(it)
             }
         })
+
+        return binding.root
     }
 
     override fun onDestroyView() {
