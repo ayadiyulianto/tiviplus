@@ -1,39 +1,36 @@
 package com.pitchblack.tiviplus.ui.tv.detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.pitchblack.tiviplus.R
-import com.pitchblack.tiviplus.Utils.getYear
+import com.pitchblack.tiviplus.utils.DataUtils.getYear
 import com.pitchblack.tiviplus.data.model.TVDetail
-import com.pitchblack.tiviplus.data.network.RestAPI
+import com.pitchblack.tiviplus.utils.NetworkUtils
 import com.pitchblack.tiviplus.databinding.FragmentTvDetailBinding
-import com.pitchblack.tiviplus.ui.adapters.*
+import com.pitchblack.tiviplus.ui.commons.*
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TvDetailFragment : Fragment() {
 
     private var _binding: FragmentTvDetailBinding? = null
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: TvDetailViewModel
+    private val viewModel: TvDetailViewModel by viewModels()
     private lateinit var videoListAdapter: VideoListAdapter
     private lateinit var castsListAdapter: CastsListAdapter
     private lateinit var seasonListAdapter: SeasonListAdapter
     private lateinit var reviewListAdapter: ReviewListAdapter
     private lateinit var recommendationGridAdapter: TVGridAdapter
     private lateinit var similarGridAdapter: TVGridAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,11 +39,6 @@ class TvDetailFragment : Fragment() {
         _binding = FragmentTvDetailBinding.inflate(inflater, container, false)
 
         initToolbar()
-
-        val arguments = TvDetailFragmentArgs.fromBundle(requireArguments())
-        viewModel = ViewModelProvider(this, TvDetailViewModel.Factory(arguments.tvId))
-            .get(TvDetailViewModel::class.java)
-
         initAdapter()
         initObserver()
 
@@ -65,6 +57,7 @@ class TvDetailFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             (activity as AppCompatActivity).onBackPressed()
         }
+        setHasOptionsMenu(true)
     }
 
     private fun initAdapter() {
@@ -118,7 +111,7 @@ class TvDetailFragment : Fragment() {
 
     private fun showToUI(tv: TVDetail) {
         Glide.with(binding.root.context)
-            .load(RestAPI.getPosterPath(tv.posterPath))
+            .load(NetworkUtils.getPosterPath(tv.posterPath))
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.animation_loading)

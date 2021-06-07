@@ -27,9 +27,13 @@
 
     <fragment
         android:id="@+id/navigation_people"
-        android:name="com.pitchblack.tiviplus.ui.people.main.PeopleFragment"
-        android:label="@string/people"
-        tools:layout="@layout/fragment_people" />
+        android:name="com.pitchblack.tiviplus.ui.celebs.main.CelebsFragment"
+        android:label="@string/celebs"
+        tools:layout="@layout/fragment_people" >
+        <action
+            android:id="@+id/action_navigation_people_to_peopleDetailFragment"
+            app:destination="@id/peopleDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/movieDetailFragment"
@@ -47,6 +51,15 @@
         tools:layout="@layout/fragment_tv_detail" >
         <argument
             android:name="tvId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/peopleDetailFragment"
+        android:name="com.pitchblack.tiviplus.ui.celebs.detail.CelebsDetailFragment"
+        android:label="fragment_people_detail"
+        tools:layout="@layout/fragment_people_detail" >
+        <argument
+            android:name="peopleId"
             app:argType="integer" />
     </fragment>
 

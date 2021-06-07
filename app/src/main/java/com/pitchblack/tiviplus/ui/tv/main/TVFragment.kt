@@ -9,9 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.pitchblack.tiviplus.R
 import com.pitchblack.tiviplus.databinding.FragmentTvBinding
-import com.pitchblack.tiviplus.ui.movie.main.MovieFragmentDirections
-import com.pitchblack.tiviplus.ui.people.main.PeopleAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TVFragment : Fragment() {
 
     private var _binding: FragmentTvBinding? = null
@@ -20,17 +20,24 @@ class TVFragment : Fragment() {
 
     private lateinit var tvPagerAdapter: TVPagerAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTvBinding.inflate(inflater, container, false)
+
+        setToolbar()
+        tvPagerAdapter = TVPagerAdapter(this)
+        binding.viewPager.adapter = tvPagerAdapter
+        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
+            tab.text = getString(TAB_TITLES[position])
+        }.attach()
+
+        return binding.root
+    }
+
+    private fun setToolbar() {
         if(activity is AppCompatActivity) {
             (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         }
@@ -39,14 +46,7 @@ class TVFragment : Fragment() {
             setDisplayShowHomeEnabled(true)
             setIcon(R.drawable.ic_baseline_local_movies_24)
         }
-
-        tvPagerAdapter = TVPagerAdapter(this)
-        binding.viewPager.adapter = tvPagerAdapter
-        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
-            tab.text = getString(com.pitchblack.tiviplus.ui.movie.main.TAB_TITLES[position])
-        }.attach()
-
-        return binding.root
+        setHasOptionsMenu(true)
     }
 
     fun navigateToDetailFragment(tvId: Int) {

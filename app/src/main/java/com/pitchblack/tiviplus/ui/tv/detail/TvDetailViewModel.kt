@@ -1,15 +1,20 @@
 package com.pitchblack.tiviplus.ui.tv.detail
 
 import android.util.Log
+import androidx.hilt.Assisted
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.pitchblack.tiviplus.data.model.*
-import com.pitchblack.tiviplus.data.network.RestAPI
 import com.pitchblack.tiviplus.data.network.dto.toDomainModel
-import com.pitchblack.tiviplus.ui.movie.detail.MovieDetailViewModel
+import com.pitchblack.tiviplus.data.repository.TVRepository
 import kotlinx.coroutines.launch
 
-class TvDetailViewModel(private val tvId: Int) : ViewModel() {
+class TvDetailViewModel @ViewModelInject constructor(
+    private val repository: TVRepository,
+    @Assisted savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
+    private val tvId = savedStateHandle.get<Int>("tvId")
     private val _tv = MutableLiveData<TVDetail>()
     val tv: LiveData<TVDetail>
         get() = _tv
@@ -35,87 +40,107 @@ class TvDetailViewModel(private val tvId: Int) : ViewModel() {
         get() = _similar
 
     init {
-        initializeMovie(tvId)
-        initializeVideos(tvId)
-        initializeCasts(tvId)
-        initializeReviews(tvId)
-        initializeRecommendations(tvId)
-        initializeSimilar(tvId)
+        tvId?.let { initializeTv(it) }
     }
 
-    private fun initializeMovie(id: Int) {
+    private fun initializeTv(id: Int) {
         viewModelScope.launch {
             try {
-                val response = RestAPI.tmDbService.getTVDetail(id)
+                val response = repository.getDetail(id)
                 _tv.value = response.toDomainModel()
             } catch (e: Exception) {
                 Log.e("initializeTV", "FAILED! ${e.message}")
             }
-        }
-    }
 
-    private fun initializeVideos(id: Int) {
-        viewModelScope.launch {
             try {
-                val response = RestAPI.tmDbService.getMovieVideos(id)
-                _videos.value = response.toDomainModel()
-            } catch (e: Exception) {
-                Log.e("initializeVideos", "FAILED! ${e.message}")
-            }
-        }
-    }
-
-    private fun initializeCasts(id: Int) {
-        viewModelScope.launch {
-            try {
-                val response = RestAPI.tmDbService.getMovieCredits(id)
+                val response = repository.getCredits(id)
                 _casts.value = response.toDomainModel()
             } catch (e: Exception) {
                 Log.e("initializeCast", "FAILED! ${e.message}")
             }
-        }
-    }
 
-    private fun initializeReviews(id: Int) {
-        viewModelScope.launch {
             try {
-                val response = RestAPI.tmDbService.getMovieReviews(id)
+                val response = repository.getVideos(id)
+                _videos.value = response.toDomainModel()
+            } catch (e: Exception) {
+                Log.e("initializeTv", "FAILED! ${e.message}")
+            }
+
+            try {
+                val response = repository.getReviews(id)
                 _reviews.value = response.toDomainModel()
             } catch (e: Exception) {
-                Log.e("initializeReviews", "FAILED! ${e.message}")
+                Log.e("initializeTv", "FAILED! ${e.message}")
             }
-        }
-    }
 
-    private fun initializeRecommendations(id: Int) {
-        viewModelScope.launch {
             try {
-                val response = RestAPI.tmDbService.getTvRecommendations(id)
+                val response = repository.getRecommendations(id)
                 _recommendations.value = response.toDomainModel()
             } catch (e: Exception) {
-                Log.e("initializeRecommend", "FAILED! ${e.message}")
+                Log.e("initializeTv", "FAILED! ${e.message}")
             }
-        }
-    }
 
-    private fun initializeSimilar(id: Int) {
-        viewModelScope.launch {
             try {
-                val response = RestAPI.tmDbService.getTvSimilar(id)
+                val response = repository.getSimilar(id)
                 _similar.value = response.toDomainModel()
             } catch (e: Exception) {
-                Log.e("initializeSimilar", "FAILED! ${e.message}")
+                Log.e("initializeTv", "FAILED! ${e.message}")
             }
         }
     }
 
-    class Factory(private val tvId: Int): ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            @Suppress("UNCHECKED_CAST")
-            if (modelClass.isAssignableFrom(TvDetailViewModel::class.java)) {
-                return TvDetailViewModel(tvId) as T
-            }
-            throw IllegalArgumentException("Unknown ViewModel Class")
-        }
-    }
+//    private fun initializeVideos(id: Int) {
+//        viewModelScope.launch {
+//            try {
+//                val response = NetworkUtils.tmDbService.getTvVideos(id)
+//                _videos.value = response.toDomainModel()
+//            } catch (e: Exception) {
+//                Log.e("initializeVideos", "FAILED! ${e.message}")
+//            }
+//        }
+//    }
+//
+//    private fun initializeCasts(id: Int) {
+//        viewModelScope.launch {
+//            try {
+//                val response = NetworkUtils.tmDbService.getTvCredits(id)
+//                _casts.value = response.toDomainModel()
+//            } catch (e: Exception) {
+//                Log.e("initializeCast", "FAILED! ${e.message}")
+//            }
+//        }
+//    }
+//
+//    private fun initializeReviews(id: Int) {
+//        viewModelScope.launch {
+//            try {
+//                val response = NetworkUtils.tmDbService.getTvReviews(id)
+//                _reviews.value = response.toDomainModel()
+//            } catch (e: Exception) {
+//                Log.e("initializeReviews", "FAILED! ${e.message}")
+//            }
+//        }
+//    }
+//
+//    private fun initializeRecommendations(id: Int) {
+//        viewModelScope.launch {
+//            try {
+//                val response = NetworkUtils.tmDbService.getTvRecommendations(id)
+//                _recommendations.value = response.toDomainModel()
+//            } catch (e: Exception) {
+//                Log.e("initializeRecommend", "FAILED! ${e.message}")
+//            }
+//        }
+//    }
+//
+//    private fun initializeSimilar(id: Int) {
+//        viewModelScope.launch {
+//            try {
+//                val response = NetworkUtils.tmDbService.getTvSimilar(id)
+//                _similar.value = response.toDomainModel()
+//            } catch (e: Exception) {
+//                Log.e("initializeSimilar", "FAILED! ${e.message}")
+//            }
+//        }
+//    }
 }

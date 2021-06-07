@@ -1,7 +1,6 @@
 package com.pitchblack.tiviplus.data.network
 
 import com.pitchblack.tiviplus.BuildConfig
-import com.pitchblack.tiviplus.data.model.TVDetail
 import com.pitchblack.tiviplus.data.network.dto.*
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -14,7 +13,7 @@ interface TMDbService {
     // Movie Endpoints
 
     @GET("movie/{type}?api_key=$API_KEY&language=en-US&page=1")
-    suspend fun getMovieList(@Path("type") type: String): MovieListDTO
+    fun getMovieList(@Path("type") type: String): MovieListDTO
 
     @GET("movie/{id}?api_key=$API_KEY&language=en-US")
     suspend fun getMovieDetail(@Path("id") id: Int): MovieDetailDTO
@@ -37,10 +36,10 @@ interface TMDbService {
     // TV Show Endpoints
 
     @GET("tv/{type}?api_key=$API_KEY&language=en-US&page=1")
-    suspend fun getTVList(@Path("type") type: String): TvListDTO
+    suspend fun getTvList(@Path("type") type: String): TvListDTO
 
     @GET("tv/{id}?api_key=$API_KEY&language=en-US")
-    suspend fun getTVDetail(@Path("id") id: Int): TvDetailDTO
+    suspend fun getTvDetail(@Path("id") id: Int): TvDetailDTO
 
     @GET("tv/{id}/credits?api_key=$API_KEY&language=en-US")
     suspend fun getTvCredits(@Path("id") id: Int): CreditsDTO
@@ -63,5 +62,11 @@ interface TMDbService {
     suspend fun getPopularPeople(): PeopleListDTO
 
     @GET("person/{id}?api_key=$API_KEY&language=en-US")
-    suspend fun getPeopleDetail(@Path("id") id: Int): PeopleListDTO
+    suspend fun getPeopleDetail(@Path("id") id: Int): PeopleDetailDTO
+
+    @GET("person/{id}/combined_credits?api_key=$API_KEY&language=en-US")
+    suspend fun getPeopleFilmography(@Path("id") id: Int): FilmographyListDTO
+
+    @GET("person/{id}/images?api_key=$API_KEY&language=en-US")
+    suspend fun getPeopleImages(@Path("id") id: Int): PeopleImagesDTO
 }

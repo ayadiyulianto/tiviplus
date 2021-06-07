@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "94261799892",
+    "project_id": "tiviplus-1c905",
+    "storage_bucket": "tiviplus-1c905.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94261799892:android:b469620cdedb73f4938441",
+        "android_client_info": {
+          "package_name": "com.pitchblack.tiviplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94261799892-lg9dg4ume6ri3gd2k5efnk8gl1h5lvi6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pitchblack.tiviplus",
+            "certificate_hash": "53130547b1d080b785b96ce206e3ec758ed41593"
+          }
+        },
+        {
+          "client_id": "94261799892-du5s4tn5bu7il8o25e78coj1cfuh8jhc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxoaa_ChqctbWfh_dBOg41UNo3yy3xuS4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94261799892-du5s4tn5bu7il8o25e78coj1cfuh8jhc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

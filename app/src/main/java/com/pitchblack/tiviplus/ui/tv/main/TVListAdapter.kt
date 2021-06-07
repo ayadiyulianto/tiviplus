@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.pitchblack.tiviplus.R
-import com.pitchblack.tiviplus.Utils.getYear
+import com.pitchblack.tiviplus.utils.DataUtils.getYear
 import com.pitchblack.tiviplus.data.model.TV
-import com.pitchblack.tiviplus.data.network.RestAPI
+import com.pitchblack.tiviplus.utils.NetworkUtils
 import com.pitchblack.tiviplus.databinding.ItemMovieTvBinding
 
 class TVListAdapter(private val clickListener: TvItemClickListener)
@@ -38,7 +38,7 @@ class TVListAdapter(private val clickListener: TvItemClickListener)
 
         fun bind(item: TV, clickListener: TvItemClickListener){
             Glide.with(binding.root.context)
-                .load(RestAPI.getPosterPath(item.posterPath))
+                .load(NetworkUtils.getPosterPath(item.posterPath))
                 .apply(
                     RequestOptions()
                     .placeholder(R.drawable.animation_loading)
